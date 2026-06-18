@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhishGuard — Elite Email Threat Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/results.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhishGuard — Elite Email Threat Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/results.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<!-- BACKGROUND -->
+<div class="bg-canvas">
+  <div class="bg-grid"></div>
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+  <div class="radar-ring"></div>
+  <div class="radar-ring"></div>
+  <div class="radar-ring"></div>
+</div>
+
+<!-- MOBILE NAV OVERLAY -->
+<div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+<nav class="mobile-sidebar" id="mobileSidebar">
+  <div class="mobile-sidebar-header">
+    <div class="brand">
+      <div class="brand-icon">🛡</div>
+      <span class="brand-name">Phish<em>Guard</em></span>
+    </div>
+    <button class="close-btn" onclick="closeNav()">✕</button>
+  </div>
+  <span class="nav-section-label">Navigation</span>
+  <a class="nav-item active" data-page="analyzer" onclick="navigateTo('analyzer'); closeNav();">
+    <div class="nav-item-icon">🔍</div>Email Analyzer
+  </a>
+  <a class="nav-item" data-page="dashboard" onclick="navigateTo('dashboard'); closeNav();">
+    <div class="nav-item-icon">📊</div>Dashboard
+  </a>
+  <a class="nav-item" data-page="threatfeed" onclick="navigateTo('threatfeed'); closeNav();">
+    <div class="nav-item-icon">📡</div>Threat Feed
+    <span class="nav-item-badge">3</span>
+  </a>
+  <span class="nav-section-label">Tools</span>
+  <a class="nav-item" data-page="urlanalyzer" onclick="navigateTo('urlanalyzer'); closeNav();">
+    <div class="nav-item-icon">🔗</div>URL Analyzer
+  </a>
+  <a class="nav-item" data-page="history" onclick="navigateTo('history'); closeNav();">
+    <div class="nav-item-icon">📋</div>Scan History
+  </a>
+  <a class="nav-item" data-page="settings" onclick="navigateTo('settings'); closeNav();">
+    <div class="nav-item-icon">⚙️</div>Settings
+  </a>
+</nav>
+
+<div class="layout">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <a class="brand" onclick="navigateTo('analyzer')" style="cursor:pointer;">
+      <div class="brand-icon">🛡</div>
+      <span class="brand-name">Phish<em>Guard</em></span>
+      <span class="brand-badge">v2.0</span>
+    </a>
+    <div class="topbar-center">
+      <div class="status-pill">
+        <div class="status-dot"></div>
+        Detection Engine Online &nbsp;·&nbsp; Rule-based + Heuristic
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <div class="topbar-stat">Engine: <span class="val">8 rules active</span></div>
+      <div class="topbar-stat">Accuracy: <span class="val">94.2%</span></div>
+      <button class="hamburger" onclick="openNav()">☰</button>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <span class="nav-section-label">Main</span>
+    <a class="nav-item active" data-page="analyzer" onclick="navigateTo('analyzer')">
+      <div class="nav-item-icon">🔍</div>Email Analyzer
+    </a>
+    <a class="nav-item" data-page="dashboard" onclick="navigateTo('dashboard')">
+      <div class="nav-item-icon">📊</div>Dashboard
+    </a>
+    <a class="nav-item" data-page="threatfeed" onclick="navigateTo('threatfeed')">
+      <div class="nav-item-icon">📡</div>Threat Feed
+      <span class="nav-item-badge">3</span>
+    </a>
+    <span class="nav-section-label">Analysis Tools</span>
+    <a class="nav-item" data-page="urlanalyzer" onclick="navigateTo('urlanalyzer')">
+      <div class="nav-item-icon">🔗</div>URL Analyzer
+    </a>
+    <a class="nav-item" data-page="attachment" onclick="navigateTo('attachment')">
+      <div class="nav-item-icon">📎</div>Attachment Scanner
+    </a>
+    <a class="nav-item" data-page="header" onclick="navigateTo('header')">
+      <div class="nav-item-icon">🧬</div>Header Inspector
+    </a>
+    <span class="nav-section-label">Reports</span>
+    <a class="nav-item" data-page="history" onclick="navigateTo('history')">
+      <div class="nav-item-icon">📋</div>Scan History
+    </a>
+    <a class="nav-item" data-page="analytics" onclick="navigateTo('analytics')">
+      <div class="nav-item-icon">📈</div>Analytics
+    </a>
+    <a class="nav-item" data-page="settings" onclick="navigateTo('settings')">
+      <div class="nav-item-icon">⚙️</div>Settings
+    </a>
+    <div class="sidebar-footer">
+      <p class="sidebar-footer-text">
+        CSC 320 Laboratory<br>
+        <span>Software Engineering Project</span><br>
+        Rule-based detection engine
+      </p>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════
+       PAGES CONTAINER
+       ═══════════════════════════════════════════ -->
+  <main class="main" id="mainContent">
+
+    <!-- ─── PAGE: EMAIL ANALYZER ─── -->
+    <div class="page" id="page-analyzer">
+
+      <div class="page-header">
+        <div class="page-header-left">
+          <h2>Email <span>Threat</span> Analyzer</h2>
+          <p>Paste any suspicious email to detect phishing attempts, social engineering tactics, and credential theft vectors.</p>
+        </div>
+        <div class="header-stats">
+          <div class="hstat">
+            <span class="hstat-num" id="scanCount">0</span>
+            <span class="hstat-label">Scans today</span>
+          </div>
+          <div class="hstat">
+            <span class="hstat-num" id="threatCount">0</span>
+            <span class="hstat-label">Threats found</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat-card">
+          <div class="stat-icon">🎯</div>
+          <span class="stat-num">94.2%</span>
+          <span class="stat-label">Detection Accuracy</span>
+          <span class="stat-delta up">↑ 2.1%</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⚡</div>
+          <span class="stat-num">8</span>
+          <span class="stat-label">Active Rule Sets</span>
+          <span class="stat-delta up">Updated</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🚨</div>
+          <span class="stat-num">3</span>
+          <span class="stat-label">Live Threat Alerts</span>
+          <span class="stat-delta down">Critical</span>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🧠</div>
+          <span class="stat-num">47</span>
+          <span class="stat-label">Pattern Signatures</span>
+          <span class="stat-delta up">Active</span>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- INPUT CARD -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-header-icon">📧</div>
+            <div class="card-title">Email Input Console</div>
+            <div class="card-subtitle" id="engineStatus">// engine ready</div>
+          </div>
+          <div class="input-toolbar">
+            <div class="toolbar-dots">
+              <div class="tdot tdot-r"></div>
+              <div class="tdot tdot-y"></div>
+              <div class="tdot tdot-g"></div>
+            </div>
+            <span class="toolbar-filename">email-input.txt — UTF-8</span>
+            <div class="toolbar-right">
+              <span class="toolbar-tag tag-ready" id="tagReady">READY</span>
+              <span class="toolbar-tag tag-scanning" id="tagScanning">SCANNING</span>
+            </div>
+          </div>
+          <textarea class="email-textarea" id="emailInput"
+            placeholder="Paste the full email content here — headers, subject, body...&#10;&#10;Example:&#10;From: support@paypa1-secure.com&#10;Subject: URGENT: Account suspended!&#10;&#10;Dear Customer, your account will be terminated within 24 hours.&#10;Click here to verify your password immediately..."
+            oninput="handleInput()" spellcheck="false"></textarea>
+          <div class="input-footer">
+            <span class="char-count" id="charCount">0 chars</span>
+            <div class="toolbar-tag tag-ready" style="font-size:9px;opacity:0.6;">LIVE ANALYSIS</div>
+            <div class="input-footer-right">
+              <button class="btn btn-ghost" onclick="clearAll()">✕ Clear</button>
+              <button class="btn btn-primary" id="analyzeBtn" onclick="analyze()">
+                <span id="btnText">▶ Analyze</span>
+              </button>
+            </div>
+          </div>
+          <div class="scan-progress" id="scanProgress">
+            <div class="scan-steps">
+              <div class="scan-step" id="step1">① Parse</div>
+              <div class="scan-step" id="step2">② Tokenize</div>
+              <div class="scan-step" id="step3">③ Pattern Match</div>
+              <div class="scan-step" id="step4">④ Score</div>
+              <div class="scan-step" id="step5">⑤ Verdict</div>
+            </div>
+            <div class="scan-bar-track">
+              <div class="scan-bar-fill" id="scanBarFill"></div>
+            </div>
+          </div>
+          <div class="samples-row">
+            <span class="samples-label">SAMPLES:</span>
+            <span class="sample-chip danger-chip" onclick="loadSample('phishing')">🚨 Phishing</span>
+            <span class="sample-chip danger-chip" onclick="loadSample('credential')">🔐 Credential Theft</span>
+            <span class="sample-chip danger-chip" onclick="loadSample('lottery')">💰 Lottery Scam</span>
+            <span class="sample-chip" onclick="loadSample('legit')">✓ Legit Email</span>
+          </div>
+        </div>
+
+        <!-- LIVE THREAT METER -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-header-icon">📡</div>
+            <div class="card-title">Live Threat Meter</div>
+            <div class="card-subtitle" id="meterStatus">// awaiting input</div>
+          </div>
+          <div class="threat-meter-wrap">
+            <div class="threat-circle-wrap">
+              <svg class="threat-circle-svg" viewBox="0 0 120 120">
+                <circle class="threat-track" cx="60" cy="60" r="50"/>
+                <circle class="threat-fill" id="threatFill" cx="60" cy="60" r="50"/>
+              </svg>
+              <div class="threat-center">
+                <span class="threat-score-num" id="liveScore">0</span>
+                <span class="threat-score-label">RISK SCORE</span>
+              </div>
+            </div>
+            <div class="threat-details">
+              <div class="threat-level-label" id="liveThreatLabel">NO THREAT</div>
+              <div class="threat-confidence">Confidence: <span id="liveConfidence" style="color:var(--text)">—</span></div>
+              <div class="threat-bars">
+                <div class="tbar-row"><span class="tbar-label">Urgency Tactics</span><div class="tbar-track"><div class="tbar-fill" id="tbar1" style="background:var(--danger)"></div></div><span class="tbar-val" id="tbarv1">0%</span></div>
+                <div class="tbar-row"><span class="tbar-label">Credential Risk</span><div class="tbar-track"><div class="tbar-fill" id="tbar2" style="background:var(--danger)"></div></div><span class="tbar-val" id="tbarv2">0%</span></div>
+                <div class="tbar-row"><span class="tbar-label">URL Suspicion</span><div class="tbar-track"><div class="tbar-fill" id="tbar3" style="background:var(--warn)"></div></div><span class="tbar-val" id="tbarv3">0%</span></div>
+                <div class="tbar-row"><span class="tbar-label">Spoofing Risk</span><div class="tbar-track"><div class="tbar-fill" id="tbar4" style="background:var(--warn)"></div></div><span class="tbar-val" id="tbarv4">0%</span></div>
+                <div class="tbar-row"><span class="tbar-label">Social Engineering</span><div class="tbar-track"><div class="tbar-fill" id="tbar5" style="background:var(--cyan)"></div></div><span class="tbar-val" id="tbarv5">0%</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="threshold-strip">
+        <span class="threshold-label">RISK THRESHOLDS:</span>
+        <div class="threshold-item"><div class="threshold-dot" style="background:var(--safe);box-shadow:0 0 5px var(--safe)"></div><span style="color:var(--safe)">Legitimate</span><span style="color:var(--muted)">0–4 pts</span></div>
+        <span class="threshold-sep">|</span>
+        <div class="threshold-item"><div class="threshold-dot" style="background:var(--warn);box-shadow:0 0 5px var(--warn)"></div><span style="color:var(--warn)">Suspicious</span><span style="color:var(--muted)">5–9 pts</span></div>
+        <span class="threshold-sep">|</span>
+        <div class="threshold-item"><div class="threshold-dot" style="background:var(--danger);box-shadow:0 0 5px var(--danger)"></div><span style="color:var(--danger)">Phishing</span><span style="color:var(--muted)">10+ pts</span></div>
+        <span class="threshold-sep">|</span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--muted)">Max: 25 pts · 47 signatures · 8 rule categories</span>
+      </div>
+
+      <!-- ACTIVITY FEED -->
+      <div class="card" id="activitySection">
+        <div class="card-header">
+          <div class="card-header-icon">⚡</div>
+          <div class="card-title">Live Activity Feed</div>
+          <div class="card-subtitle">// real-time monitoring</div>
+        </div>
+        <div class="card-body">
+          <div class="activity-feed" id="activityFeed">
+            <div class="activity-item"><div class="activity-dot" style="background:var(--safe)"></div><div class="activity-text">Detection engine <strong>initialized</strong> — all 8 rule sets loaded</div><div class="activity-time">just now</div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--cyan)"></div><div class="activity-text">Pattern database <strong>updated</strong> — 47 signatures active</div><div class="activity-time">1m ago</div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--warn)"></div><div class="activity-text"><strong>Suspicious URL pattern</strong> detected in global feed — paypa1.com variant</div><div class="activity-time">4m ago</div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--danger)"></div><div class="activity-text"><strong>High-severity phishing campaign</strong> flagged — credential harvesting vector</div><div class="activity-time">12m ago</div></div>
+            <div class="activity-item"><div class="activity-dot" style="background:var(--safe)"></div><div class="activity-text">Rule engine <strong>self-test passed</strong> — 94.2% accuracy benchmark confirmed</div><div class="activity-time">1h ago</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULTS SECTION -->
+      <div id="results-section">
+        <div class="verdict-card" id="verdictCard">
+          <div class="verdict-glow"></div>
+          <div class="verdict-inner">
+            <div class="verdict-icon" id="verdictIcon"></div>
+            <div class="verdict-text">
+              <div class="verdict-tag">DETECTION VERDICT</div>
+              <div class="verdict-name" id="verdictName"></div>
+              <div class="verdict-desc" id="verdictDesc"></div>
+              <div class="verdict-meta" id="verdictMeta"></div>
+            </div>
+            <div class="verdict-scores" id="verdictScores"></div>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header"><div class="card-header-icon">📊</div><div class="card-title">Advanced Risk Metrics</div><div class="card-subtitle" id="metricsTag">// computed</div></div>
+            <div class="card-body"><div class="metrics-grid" id="metricsGrid"></div></div>
+          </div>
+          <div class="ai-panel">
+            <div class="ai-header"><div class="ai-orb">🧠</div><div class="ai-header-text">Threat Intelligence Engine</div><span class="ai-header-tag">AI INSIGHTS</span></div>
+            <div class="ai-body" id="aiBody"></div>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header"><div class="card-header-icon">📬</div><div class="card-title">Email Preview Simulator</div><div class="card-subtitle">// rendered view</div></div>
+            <div class="card-body" style="padding:0;"><div class="email-preview" id="emailPreview"></div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-header-icon">⏱</div><div class="card-title">Phishing Attack Timeline</div><div class="card-subtitle">// attack vector stages</div></div>
+            <div class="card-body">
+              <div class="timeline">
+                <div class="tl-stage" id="tls1"><div class="tl-icon">📨</div><div class="tl-name">DELIVERY</div><div class="tl-sub">Email sent</div></div>
+                <div class="tl-stage" id="tls2"><div class="tl-icon">🪝</div><div class="tl-name">HOOK</div><div class="tl-sub">Social eng.</div></div>
+                <div class="tl-stage" id="tls3"><div class="tl-icon">🖱</div><div class="tl-name">CLICK</div><div class="tl-sub">User clicks</div></div>
+                <div class="tl-stage" id="tls4"><div class="tl-icon">🔐</div><div class="tl-name">HARVEST</div><div class="tl-sub">Credentials</div></div>
+                <div class="tl-stage" id="tls5"><div class="tl-icon">💥</div><div class="tl-name">COMPROMISE</div><div class="tl-sub">Account taken</div></div>
+              </div>
+              <div style="margin-top:16px;" id="timelineExplain"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-header-icon">🚩</div><div class="card-title">Detected Threat Indicators</div><span class="card-subtitle" id="indicatorCount">// 0 flags</span></div>
+          <div class="card-body"><div id="indicatorsList"></div></div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header"><div class="card-header-icon">🔗</div><div class="card-title">URL Risk Analysis</div><div class="card-subtitle">// link inspector</div></div>
+            <div class="card-body" id="urlPanel"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-header-icon">🛡</div><div class="card-title">Cybersecurity Guidance</div><div class="card-subtitle">// best practices</div></div>
+            <div class="card-body" id="tipsList"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /page-analyzer -->
+
+
+    <!-- ─── PAGE: DASHBOARD ─── -->
+    <div class="page" id="page-dashboard" style="display:none;">
+      <div class="page-header">
+        <div class="page-header-left">
+          <h2>Security <span>Dashboard</span></h2>
+          <p>Overview of detection activity, threat trends, and engine performance metrics.</p>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-card"><div class="stat-icon">🔍</div><span class="stat-num" id="db-totalScans">0</span><span class="stat-label">Total Scans</span><span class="stat-delta up">Session</span></div>
+        <div class="stat-card"><div class="stat-icon">🚨</div><span class="stat-num" id="db-threats">0</span><span class="stat-label">Threats Detected</span><span class="stat-delta down">Flagged</span></div>
+        <div class="stat-card"><div class="stat-icon">✅</div><span class="stat-num" id="db-clean">0</span><span class="stat-label">Clean Emails</span><span class="stat-delta up">Safe</span></div>
+        <div class="stat-card"><div class="stat-icon">🎯</div><span class="stat-num">94.2%</span><span class="stat-label">Accuracy Rate</span><span class="stat-delta up">↑ 2.1%</span></div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header"><div class="card-header-icon">📊</div><div class="card-title">Threat Breakdown</div><div class="card-subtitle">// by category</div></div>
+          <div class="card-body" id="db-breakdown">
+            <div class="db-empty-state"><div class="db-empty-icon">📭</div><p>No scans yet. Run your first analysis to see threat category breakdown.</p><button class="btn btn-primary" style="margin-top:16px;" onclick="navigateTo('analyzer')">▶ Go to Analyzer</button></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-header-icon">⚡</div><div class="card-title">Recent Activity</div><div class="card-subtitle">// last 10 scans</div></div>
+          <div class="card-body">
+            <div class="activity-feed" id="db-feed">
+              <div class="activity-item"><div class="activity-dot" style="background:var(--safe)"></div><div class="activity-text">Engine <strong>online</strong> — awaiting scans</div><div class="activity-time">now</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-icon">🧬</div><div class="card-title">Detection Engine Status</div><div class="card-subtitle">// 8 rule categories</div></div>
+        <div class="card-body">
+          <div class="metrics-grid">
+            <div class="metric-cell"><div class="metric-label">URGENCY RULES</div><div class="metric-bar-wrap"><div class="metric-bar" style="background:var(--danger);width:100%"></div></div><div class="metric-val" style="color:var(--safe)">Active</div><div class="metric-sub">7 patterns loaded</div></div>
+            <div class="metric-cell"><div class="metric-label">CREDENTIAL RULES</div><div class="metric-bar-wrap"><div class="metric-bar" style="background:var(--danger);width:100%"></div></div><div class="metric-val" style="color:var(--safe)">Active</div><div class="metric-sub">5 patterns loaded</div></div>
+            <div class="metric-cell"><div class="metric-label">URL SPOOFING</div><div class="metric-bar-wrap"><div class="metric-bar" style="background:var(--warn);width:100%"></div></div><div class="metric-val" style="color:var(--safe)">Active</div><div class="metric-sub">9 patterns loaded</div></div>
+            <div class="metric-cell"><div class="metric-label">GREETING ANALYSIS</div><div class="metric-bar-wrap"><div class="metric-bar" style="background:var(--cyan);width:100%"></div></div><div class="metric-val" style="color:var(--safe)">Active</div><div class="metric-sub">4 patterns loaded</div></div>
+            <div class="metric-cell"><div class="metric-label">LURE DETECTION</div><div class="metric-bar-wrap"><div class="metric-bar" style="background:var(--warn);width:100%"></div></div><div class="metric-val" style="color:var(--safe)">Active</div><div class="metric-sub">5 patterns loaded</div></div>
+            <div class="metric-cell"><div class="metric-label">ATTACHMENT SCAN</div><div class="metric-bar-wrap"><div class="metric-bar" style="background:var(--warn);width:100%"></div></div><div class="metric-val" style="color:var(--safe)">Active</div><div class="metric-sub">5 patterns loaded</div></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /page-dashboard -->
+
+
+    <!-- ─── PAGE: THREAT FEED ─── -->
+    <div class="page" id="page-threatfeed" style="display:none;">
+      <div class="page-header">
+        <div class="page-header-left">
+          <h2>Live <span>Threat Feed</span></h2>
+          <p>Simulated global phishing campaign intelligence and real-time threat indicators.</p>
+        </div>
+        <span class="nav-item-badge" style="font-size:12px;padding:6px 14px;align-self:center;">3 ACTIVE ALERTS</span>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-icon">🚨</div><div class="card-title">Active Threat Alerts</div><div class="card-subtitle">// live intelligence</div></div>
+        <div class="card-body">
+          <div class="indicator-item high" style="margin-bottom:12px;">
+            <div class="indicator-badge">CRITICAL</div>
+            <div class="indicator-content">
+              <div class="indicator-name">PayPal Credential Harvest Campaign</div>
+              <div class="indicator-why">Mass phishing campaign impersonating PayPal detected. Attackers using paypa1-secure.com and paypal-login-verify.xyz domains. 2,400+ targets identified globally.</div>
+              <div style="margin-top:6px;font-family:var(--mono);font-size:10px;color:var(--muted);">Detected: 2 hours ago · IOC: paypa1-secure.com, paypal-login-verify.xyz</div>
+            </div>
+            <div class="indicator-pts" style="color:var(--danger)">HIGH</div>
+          </div>
+          <div class="indicator-item high" style="margin-bottom:12px;">
+            <div class="indicator-badge">CRITICAL</div>
+            <div class="indicator-content">
+              <div class="indicator-name">Amazon Account Suspension Scam</div>
+              <div class="indicator-why">Credential phishing campaign targeting Amazon users. Emails claim account suspension and request credit card re-verification via malicious link.</div>
+              <div style="margin-top:6px;font-family:var(--mono);font-size:10px;color:var(--muted);">Detected: 5 hours ago · IOC: amazon-account-verify.net</div>
+            </div>
+            <div class="indicator-pts" style="color:var(--danger)">HIGH</div>
+          </div>
+          <div class="indicator-item med" style="margin-bottom:0;">
+            <div class="indicator-badge">MEDIUM</div>
+            <div class="indicator-content">
+              <div class="indicator-name">Lottery / Prize Scam Wave</div>
+              <div class="indicator-why">New batch of lottery scam emails circulating. Emails promise large cash prizes and request .exe attachment downloads or bank details to "claim" winnings.</div>
+              <div style="margin-top:6px;font-family:var(--mono);font-size:10px;color:var(--muted);">Detected: 1 day ago · Malware: invoice.exe dropper</div>
+            </div>
+            <div class="indicator-pts" style="color:var(--warn)">MED</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-icon">🌐</div><div class="card-title">Known Malicious Domains</div><div class="card-subtitle">// blocklist preview</div></div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;">
+            <div style="padding:10px 14px;background:rgba(255,61,90,0.06);border:1px solid rgba(255,61,90,0.2);border-radius:10px;font-family:var(--mono);font-size:12px;color:var(--danger);">paypa1-secure.com <span style="color:var(--muted);font-size:10px;display:block;margin-top:2px;">Typosquat · PayPal</span></div>
+            <div style="padding:10px 14px;background:rgba(255,61,90,0.06);border:1px solid rgba(255,61,90,0.2);border-radius:10px;font-family:var(--mono);font-size:12px;color:var(--danger);">amazon-account-verify.net <span style="color:var(--muted);font-size:10px;display:block;margin-top:2px;">Credential harvest · Amazon</span></div>
+            <div style="padding:10px 14px;background:rgba(255,61,90,0.06);border:1px solid rgba(255,61,90,0.2);border-radius:10px;font-family:var(--mono);font-size:12px;color:var(--danger);">login-secure-paypal.xyz <span style="color:var(--muted);font-size:10px;display:block;margin-top:2px;">Fake login page · PayPal</span></div>
+            <div style="padding:10px 14px;background:rgba(255,184,0,0.06);border:1px solid rgba(255,184,0,0.2);border-radius:10px;font-family:var(--mono);font-size:12px;color:var(--warn);">support@noreply.tk <span style="color:var(--muted);font-size:10px;display:block;margin-top:2px;">Spoofed sender · Generic</span></div>
+            <div style="padding:10px 14px;background:rgba(255,184,0,0.06);border:1px solid rgba(255,184,0,0.2);border-radius:10px;font-family:var(--mono);font-size:12px;color:var(--warn);">bit.ly/amzn-update <span style="color:var(--muted);font-size:10px;display:block;margin-top:2px;">URL shortener · Redirect</span></div>
+            <div style="padding:10px 14px;background:rgba(255,184,0,0.06);border:1px solid rgba(255,184,0,0.2);border-radius:10px;font-family:var(--mono);font-size:12px;color:var(--warn);">g00gle-account-verify.com <span style="color:var(--muted);font-size:10px;display:block;margin-top:2px;">Typosquat · Google</span></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /page-threatfeed -->
+
+
+    <!-- ─── PAGE: URL ANALYZER ─── -->
+    <div class="page" id="page-urlanalyzer" style="display:none;">
+      <div class="page-header">
+        <div class="page-header-left">
+          <h2>URL <span>Risk Analyzer</span></h2>
+          <p>Paste a URL or domain to check it against known phishing patterns and suspicious indicators.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-icon">🔗</div><div class="card-title">URL Inspector</div><div class="card-subtitle">// paste any link</div></div>
+        <div class="card-body">
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <input id="urlInput" type="text" placeholder="https://example.com or paste any suspicious URL..."
+              style="flex:1;min-width:200px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-family:var(--mono);font-size:13px;padding:14px 16px;outline:none;transition:border-color 0.2s;"
+              onfocus="this.style.borderColor='var(--cyan2)'" onblur="this.style.borderColor='var(--border2)'"
+              oninput="liveURLCheck(this.value)">
+            <button class="btn btn-primary" onclick="analyzeURL()">🔍 &nbsp;Analyze URL</button>
+          </div>
+          <div id="urlResult" style="margin-top:20px;"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-icon">⚠️</div><div class="card-title">URL Red Flags to Watch For</div><div class="card-subtitle">// education</div></div>
+        <div class="card-body">
+          <div class="metrics-grid">
+            <div class="metric-cell"><div class="metric-label">TYPOSQUATTING</div><div class="metric-val" style="font-size:14px;color:var(--danger)">paypa1.com</div><div class="metric-sub">Numbers replacing letters in brand names</div></div>
+            <div class="metric-cell"><div class="metric-label">SUBDOMAIN TRICK</div><div class="metric-val" style="font-size:14px;color:var(--danger)">paypal.evil.com</div><div class="metric-sub">Real brand name used as a subdomain</div></div>
+            <div class="metric-cell"><div class="metric-label">SUSPICIOUS TLD</div><div class="metric-val" style="font-size:14px;color:var(--warn)">bank.xyz / .tk</div><div class="metric-sub">Free or unusual top-level domains</div></div>
+            <div class="metric-cell"><div class="metric-label">URL SHORTENERS</div><div class="metric-val" style="font-size:14px;color:var(--warn)">bit.ly/x1k2</div><div class="metric-sub">Hides real destination URL</div></div>
+            <div class="metric-cell"><div class="metric-label">HTTP (NO S)</div><div class="metric-val" style="font-size:14px;color:var(--warn)">http://</div><div class="metric-sub">No TLS — unencrypted connection</div></div>
+            <div class="metric-cell"><div class="metric-label">KEYWORD STUFFING</div><div class="metric-val" style="font-size:14px;color:var(--cyan)">secure-login-verify</div><div class="metric-sub">Trustworthy words in path/domain</div></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /page-urlanalyzer -->
+
+
+    <!-- ─── PAGE: ATTACHMENT SCANNER ─── -->
+    <div class="page" id="page-attachment" style="display:none;">
+      <div class="page-header">
+        <div class="page-header-left">
+          <h2>Attachment <span>Scanner</span></h2>
+          <p>Identify dangerous file types and malware delivery patterns in email attachments.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-icon">📎</div><div class="card-title">File Type Risk Reference</div><div class="card-subtitle">// threat matrix</div></div>
+        <div class="card-body">
+          <div class="metrics-grid">
+            <div class="metric-cell"><div class="metric-label">EXECUTABLE</div><div class="metric-bar-wrap"><div class="metric-bar" style="background:var(--danger);width:100%"></div></div><div class="metric-val" style="color:var(--danger)">.exe .bat .cmd</div><div class="metric-sub">Direct malware execution — NEVER open</div></div>
+            <div class="metric-cell"><div class="metric-label">OFFICE MACROS</div><div class="metric-bar-wrap"><div class="metric-bar" style="background:var(--danger);width:90%"></div></div><div class="metric-val" style="color:var(--danger)">.doc .xls .xlsm</div><div class="metric-sub">Macro-enabled documents — high risk</div></div>
+            <div class="metric-cell"><div class="metric-label">ARCHIVES</div><div class="metric-bar-wrap"><div class="metric-bar" style="background:var(--warn);width:70%"></div></div><div class="metric-val" style="color:var(--warn)">.zip .rar .7z</div><div class="metric-sub">May contain hidden malicious files</div></div>
+            <div class="metric-cell"><div class="metric-label">SCRIPTS</div><div class="metric-bar-wrap"><div class="metric-bar" style="background:var(--warn);width:80%"></div></div><div class="metric-val" style="color:var(--warn)">.js .vbs .ps1</div><div class="metric-sub">Script files can execute malware</div></div>
+            <div class="metric-cell"><div class="metric-label">PDF FILES</div><div class="metric-bar-wrap"><div class="metric-bar" style="background:var(--cyan);width:40%"></div></div><div class="metric-val" style="color:var(--cyan)">.pdf</div><div class="metric-sub">Can embed malicious JavaScript/links</div></div>
+            <div class="metric-cell"><div class="metric-label">IMAGES</div><div class="metric-bar-wrap"><div class="metric-bar" style="background:var(--safe);width:15%"></div></div><div class="metric-val" style="color:var(--safe)">.jpg .png .gif</div><div class="metric-sub">Generally safe, verify source</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-icon">💡</div><div class="card-title">Safe Attachment Practices</div></div>
+        <div class="card-body">
+          <div id="attachTips"></div>
+        </div>
+      </div>
+    </div><!-- /page-attachment -->
+
+
+    <!-- ─── PAGE: HEADER INSPECTOR ─── -->
+    <div class="page" id="page-header" style="display:none;">
+      <div class="page-header">
+        <div class="page-header-left">
+          <h2>Email Header <span>Inspector</span></h2>
+          <p>Analyse email headers to detect SPF/DKIM failures, sender spoofing, and routing anomalies.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-icon">🧬</div><div class="card-title">Paste Email Headers</div><div class="card-subtitle">// raw header analysis</div></div>
+        <div class="card-body">
+          <textarea id="headerInput" style="width:100%;min-height:160px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-family:var(--mono);font-size:12px;padding:16px;outline:none;resize:vertical;line-height:1.7;" placeholder="Paste raw email headers here...&#10;&#10;Received: from mail.example.com...&#10;From: support@company.com&#10;DKIM-Signature: v=1; a=rsa-sha256...&#10;SPF: pass"></textarea>
+          <div style="margin-top:12px;display:flex;gap:10px;">
+            <button class="btn btn-primary" onclick="analyzeHeaders()">🧬 &nbsp;Inspect Headers</button>
+            <button class="btn btn-ghost" onclick="document.getElementById('headerInput').value=''">✕ Clear</button>
+          </div>
+          <div id="headerResult" style="margin-top:20px;"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-icon">📘</div><div class="card-title">Header Authentication Explained</div></div>
+        <div class="card-body">
+          <div class="metrics-grid">
+            <div class="metric-cell"><div class="metric-label">SPF CHECK</div><div class="metric-val" style="font-size:14px;color:var(--safe)">PASS / FAIL</div><div class="metric-sub">Verifies email was sent from an authorised IP address for the domain</div></div>
+            <div class="metric-cell"><div class="metric-label">DKIM SIGNATURE</div><div class="metric-val" style="font-size:14px;color:var(--safe)">VALID / INVALID</div><div class="metric-sub">Cryptographic signature confirms the email body was not tampered with</div></div>
+            <div class="metric-cell"><div class="metric-label">DMARC POLICY</div><div class="metric-val" style="font-size:14px;color:var(--cyan)">ALIGNED</div><div class="metric-sub">Policy that specifies what to do when SPF/DKIM checks fail</div></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /page-header -->
+
+
+    <!-- ─── PAGE: SCAN HISTORY ─── -->
+    <div class="page" id="page-history" style="display:none;">
+      <div class="page-header">
+        <div class="page-header-left">
+          <h2>Scan <span>History</span></h2>
+          <p>Record of all email analyses performed in this session.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-icon">📋</div><div class="card-title">Session Scan Log</div><div class="card-subtitle" id="historyCount">// 0 records</div></div>
+        <div class="card-body" id="historyList">
+          <div class="db-empty-state">
+            <div class="db-empty-icon">📭</div>
+            <p>No scans recorded yet. Analyse an email to start building your history.</p>
+            <button class="btn btn-primary" style="margin-top:16px;" onclick="navigateTo('analyzer')">▶ Go to Analyzer</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- /page-history -->
+
+
+    <!-- ─── PAGE: ANALYTICS ─── -->
+    <div class="page" id="page-analytics" style="display:none;">
+      <div class="page-header">
+        <div class="page-header-left">
+          <h2>Detection <span>Analytics</span></h2>
+          <p>Breakdown of threat categories and rule trigger frequency across all scans this session.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-icon">📈</div><div class="card-title">Rule Trigger Frequency</div><div class="card-subtitle" id="analyticsSubtitle">// 0 scans analysed</div></div>
+        <div class="card-body" id="analyticsBody">
+          <div class="db-empty-state">
+            <div class="db-empty-icon">📊</div>
+            <p>Analyse emails to generate detection analytics and rule trigger statistics.</p>
+            <button class="btn btn-primary" style="margin-top:16px;" onclick="navigateTo('analyzer')">▶ Go to Analyzer</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- /page-analytics -->
+
+
+    <!-- ─── PAGE: SETTINGS ─── -->
+    <div class="page" id="page-settings" style="display:none;">
+      <div class="page-header">
+        <div class="page-header-left">
+          <h2>Engine <span>Settings</span></h2>
+          <p>Configure detection thresholds, rule weights, and display preferences.</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header"><div class="card-header-icon">⚙️</div><div class="card-title">Detection Thresholds</div></div>
+          <div class="card-body">
+            <div style="display:flex;flex-direction:column;gap:18px;">
+              <div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="font-size:13px;color:var(--text2)">Suspicious threshold</span><span style="font-family:var(--mono);font-size:12px;color:var(--warn);" id="warnVal">5 pts</span></div>
+                <input type="range" min="2" max="12" value="5" style="width:100%;accent-color:var(--warn);" oninput="document.getElementById('warnVal').textContent=this.value+' pts'">
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="font-size:13px;color:var(--text2)">Phishing threshold</span><span style="font-family:var(--mono);font-size:12px;color:var(--danger);" id="dangerVal">10 pts</span></div>
+                <input type="range" min="6" max="20" value="10" style="width:100%;accent-color:var(--danger);" oninput="document.getElementById('dangerVal').textContent=this.value+' pts'">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-header-icon">🎨</div><div class="card-title">Display Preferences</div></div>
+          <div class="card-body">
+            <div style="display:flex;flex-direction:column;gap:14px;">
+              <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+                <span style="font-size:13px;color:var(--text2)">Show scan progress steps</span>
+                <input type="checkbox" checked style="accent-color:var(--cyan);width:18px;height:18px;cursor:pointer;">
+              </label>
+              <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+                <span style="font-size:13px;color:var(--text2)">Highlight suspicious keywords</span>
+                <input type="checkbox" checked style="accent-color:var(--cyan);width:18px;height:18px;cursor:pointer;">
+              </label>
+              <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+                <span style="font-size:13px;color:var(--text2)">Auto-scroll to results</span>
+                <input type="checkbox" checked style="accent-color:var(--cyan);width:18px;height:18px;cursor:pointer;">
+              </label>
+              <label style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+                <span style="font-size:13px;color:var(--text2)">Show AI insights panel</span>
+                <input type="checkbox" checked style="accent-color:var(--cyan);width:18px;height:18px;cursor:pointer;">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-header-icon">📘</div><div class="card-title">About PhishGuard</div></div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div><p style="font-size:13px;color:var(--text2);line-height:1.8;">PhishGuard is a client-side rule-based email phishing detection engine built for CSC 320 Software Laboratory. It uses pattern matching across 8 threat categories to identify social engineering, credential theft, URL spoofing, and other phishing indicators.</p></div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;display:flex;justify-content:space-between;"><span style="font-size:12px;color:var(--muted);">Version</span><span style="font-family:var(--mono);font-size:12px;color:var(--cyan);">v2.0</span></div>
+              <div style="padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;display:flex;justify-content:space-between;"><span style="font-size:12px;color:var(--muted);">Rule Sets</span><span style="font-family:var(--mono);font-size:12px;color:var(--cyan);">8</span></div>
+              <div style="padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;display:flex;justify-content:space-between;"><span style="font-size:12px;color:var(--muted);">Signatures</span><span style="font-family:var(--mono);font-size:12px;color:var(--cyan);">47</span></div>
+              <div style="padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;display:flex;justify-content:space-between;"><span style="font-size:12px;color:var(--text2);">Course</span><span style="font-family:var(--mono);font-size:12px;color:var(--cyan);">CSC 320</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /page-settings -->
+
+  </main>
+
+  <footer class="site-footer">
+    <span>PhishGuard <span class="footer-brand">v2.0</span> · CSC 320 Software Laboratory · Rule-based + heuristic detection engine</span>
+    <span style="font-family:var(--mono);font-size:10px;">47 signatures · 8 rule categories · 94.2% accuracy</span>
+  </footer>
+
+</div><!-- /layout -->
+
+<!-- MOBILE STICKY ANALYZE BUTTON -->
+<div class="mobile-sticky-btn" id="mobileStickyBtn">
+  <button class="btn btn-primary" id="mobileAnalyzeBtn" onclick="analyze()"
+    style="width:100%;justify-content:center;padding:16px;font-size:14px;border-radius:14px;box-shadow:0 8px 30px rgba(0,215,255,0.3);">
+    <span id="mobileBtnText">▶ &nbsp;Analyze Email</span>
+  </button>
+</div>
+
+<script src="js/rules.js"></script>
+<script src="js/samples.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/render.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/router.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
+
